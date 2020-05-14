@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="Big-5">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Grow up children</title>
+    <link href="CSS/STT.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <!-- <div class="return">
+      
+    </div> -->
+    <div class="home_page">
+      <a href="ask_question.html" class="return"><img src="icons/return.png"></a>
+      <a href="home.html">Grow UP！學習趣</a>
+    </div>
+    <center>
+      <h1>語音問問題</h1>
+      <div>
+        <button type="button" class="btn_askQ" id="button" name="button" onclick="exec('python testMic.py');">>>>點我發問<<<</button>
+        <br/><br/><br/>
+        <input type="text" font-size ="18px" id="message" name="" value="請開始說話！">
+        <br/>
+        <label>你問的問題是>>為什麼天空是藍的？</textarea>
+        <br/>
+        <label>RaspBot>>因為光經水氣折射後，大部分藍光被散射，所以整個天空都呈現藍色。</textarea>
+      </div>
+      <!-- <input type="button" id='Ask' name="Ask_Q" font-size="24px" value="發問!!!!" onclick="exec('python testMic.py');"> -->
+      <!-- <div id="result"></div> -->
+      <!-- <font size="24px" color="#2222" id="Dialog_context"></font> -->
+      
+      <script src="index.js"></script>
+    </center>
+    
+    <script type="text/javascript">
+      var ipcRenderer = require('electron').ipcRenderer;
+      document.getElementById('button').onclick = function () {
+      var message = document.getElementById('message').value;
+    // 使用 ipcRenderer.send 向主进程发送消息。
+      ipcRenderer.send('asynchronous-message', message);
+    }
+
+  // 监听主进程返回的消息
+      ipcRenderer.on('asynchronous-reply', function (event, arg) {
+        alert(arg);
+     });
+    </script>
+    <!-- We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>. -->
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>
